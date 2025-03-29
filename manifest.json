@@ -2,9 +2,17 @@
   "name": "Casino blocker",
   "description": "Chrome extension that helps you overpass your casino addiction!",
   "version": "0.1",
+  "permissions": ["tabs"],
   "manifest_version": 3,
   "action": {
     "default_popup": "hello.html",
     "default_icon": "logo.png"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ]
 }
