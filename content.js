@@ -6,16 +6,21 @@ fetch(chrome.runtime.getURL('bannedSites.json'))
 				const oldHead = document.head;
 				const oldBody = document.body;
 
-				doc.removeChild(oldHead)
+				doc.removeChild(oldHead);
 				doc.removeChild(oldBody);
 
 				const head = document.createElement('head');
 				const body = document.createElement('body');
 
-				body.insertAdjacentHTML('beforeend', '<h1>Hello</h1>');
+				fetch(chrome.runtime.getURL('replace.html'))
+						.then(response => response.text())
+						.then(htmlContent => {
+							body.insertAdjacentHTML('beforeend', htmlContent);
 
-				doc.appendChild(head);
-				doc.appendChild(body);
+							doc.appendChild(head);
+							doc.appendChild(body);
+						})
+						.catch(error => console.error('Error loading replace.html:', error));
 			}
 		})
 		.catch(error => console.error('Error loading bannedSites.json:', error));
