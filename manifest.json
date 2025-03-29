@@ -1,0 +1,10 @@
+{
+  "name": "Casino blocker",
+  "description": "Chrome extension that helps you to overpass your cassino addiction!",
+  "version": "0.1",
+  "manifest_version": 1,
+  "action": {
+    "default_popup": "hello.html",
+    "default_icon": "logo.png"
+  }
+}
