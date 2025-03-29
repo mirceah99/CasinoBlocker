@@ -6,13 +6,14 @@ fetch(chrome.runtime.getURL('bannedSites.json'))
 				const oldHead = document.head;
 				const oldBody = document.body;
 
-				doc.removeChild(oldHead);
-				doc.removeChild(oldBody);
+                oldHead && doc.removeChild(oldHead);
+                oldBody && doc.removeChild(oldBody);
 
-				const head = document.createElement('head');
-				const body = document.createElement('body');
+                const head = document.createElement('head');
+				const body = document.createElement('div');
+                body.id = 'custom-body'
 
-				fetch(chrome.runtime.getURL('replace.html'))
+                fetch(chrome.runtime.getURL('replace.html'))
 						.then(response => response.text())
 						.then(htmlContent => {
 							body.insertAdjacentHTML('beforeend', htmlContent);
@@ -21,6 +22,16 @@ fetch(chrome.runtime.getURL('bannedSites.json'))
 							doc.appendChild(body);
 						})
 						.catch(error => console.error('Error loading replace.html:', error));
+
+                setInterval(removeAllScripts, 1000);
 			}
 		})
 		.catch(error => console.error('Error loading bannedSites.json:', error));
+
+
+function removeAllScripts() {
+    const scripts = document.getElementsByTagName('script');
+    Array.from(scripts).reverse().forEach(script => {
+        script.parentNode.removeChild(script);
+    });
+}

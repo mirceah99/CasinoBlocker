@@ -2,7 +2,7 @@
   "name": "Casino blocker",
   "description": "Chrome extension that helps you overpass your casino addiction!",
   "version": "0.1",
-  "permissions": ["tabs"],
+  "permissions": ["tabs", "declarativeNetRequest", "webRequest"],
   "manifest_version": 3,
   "action": {
     "default_popup": "hello.html",
@@ -10,7 +10,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["bannedSites.json", "replace.html"],
+      "resources": ["bannedSites.json", "replace.html", "favicon.ico"],
       "matches": ["<all_urls>"]
     }
   ],
